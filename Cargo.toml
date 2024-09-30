@@ -1,0 +1,5 @@
+[workspace]
+members=[
+    "solana-geyser-zmq/solana-geyser-plugin-scaffold",
+    "solana-snapshot-etl",
+]
