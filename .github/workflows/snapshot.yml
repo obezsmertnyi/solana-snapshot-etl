@@ -31,7 +31,7 @@ jobs:
         env:
           APP: "solana-snapshot-etl"
           REGISTRY: ghcr.io/${{ github.repository_owner }}
-        working-directory: plerkle_snapshot
+        #working-directory: plerkle_snapshot
         run: make build push
         
       - name: Clean
