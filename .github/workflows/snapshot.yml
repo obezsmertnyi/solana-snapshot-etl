@@ -3,7 +3,9 @@ name: Build and Push Solana Snapshot ETL Docker Image
 on:
   push:
     tags:
-      - "snapshot-v*"
+      - "v*"
+    paths:
+      - 'test/**'
 
 jobs:
   etl:
