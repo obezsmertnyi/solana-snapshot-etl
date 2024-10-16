@@ -12,11 +12,12 @@ A = \007#         BEEP
 .PHONY: build push clean download stream
 
 SHELL := /bin/bash
-APP=$(shell basename -s .git $(shell git remote get-url origin))
+APP = solana-snapshot-etl
+REPO_NAME = $(shell basename -s .git $(shell git remote get-url origin))
 REGISTRY=ghcr.io/obezsmertnyi
 VERSION=$(shell git describe --tags --abbrev=0)
-BASEDIR = ./snapshot/*.tar.zst
-BASEPATH=${REGISTRY}/${APP}:${VERSION}
+BASEDIR = ./snapshot/
+BASEPATH = ${REGISTRY}/${REPO_NAME}/${APP}:${VERSION}
 
 build:
 	@echo -e "${M}Starting build for Docker image: ${APP}${D}"
@@ -33,8 +34,8 @@ build:
 push:
 	@echo -e "${M}Pushing Docker image to the registry: ${BASEPATH}${D}"
 	@docker push ${BASEPATH} || { echo -e "${R}Error: Failed to push the image.${D}"; exit 1; }
-	@docker tag ${BASEPATH} ${REGISTRY}/${APP}:latest
-	@docker push ${REGISTRY}/${APP}:latest || { echo -e "${R}Error: Failed to push the 'latest' tag.${D}"; exit 1; }
+	@docker tag ${BASEPATH} ${REGISTRY}/${REPO_NAME}/${APP}:latest
+	@docker push ${REGISTRY}/${REPO_NAME}/${APP}:latest || { echo -e "${R}Error: Failed to push the 'latest' tag.${D}"; exit 1; }
 	@echo -e "${G}Image pushed successfully!${D}"
 
 clean:
